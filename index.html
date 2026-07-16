@@ -706,19 +706,12 @@ document.addEventListener('DOMContentLoaded',function(){
  if(coverBtn){
    coverBtn.addEventListener('click',()=>{bgm.currentTime = 24; bgm.play().catch(()=>{});},{once:true});
  }
- 
-  const musicBtn = document.getElementById('musicBtn');
-
-  if(musicBtn){
-    musicBtn.addEventListener('click', ()=>{
-      if(bgm.paused){
-        bgm.play();
-      }else{
-        bgm.pause();
-      }
-    });
-  }
-
+ const musicBtn=document.getElementById('musicBtn');
+ if(musicBtn){
+   musicBtn.addEventListener('click',()=>{
+     if(bgm.paused){bgm.play();}else{bgm.pause();}
+   });
+ }
 });
 </script>
 
