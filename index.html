@@ -254,6 +254,19 @@
   #musicBtn.spin span{display:inline-block; animation:spin 3s linear infinite;}
   @keyframes spin{from{transform:rotate(0);} to{transform:rotate(360deg);}}
 
+  /* ===== Scroll Animation ===== */
+
+  .reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+
+  .reveal.show{
+    opacity:1;
+    transform:translateY(0);
+  }
+
   @media (max-width:520px){ section{padding:72px 0;} }
 </style>
 </head>
@@ -284,7 +297,7 @@
   </div>
 
   <!-- ============ QUOTE ============ -->
-  <section id="quote">
+  <section id="quote" class="reveal">
     <div class="container">
       <blockquote>
         "Dan di antara ayat-ayat-Nya ialah Dia menciptakan untukmu istri-istri dari
@@ -706,12 +719,32 @@ document.addEventListener('DOMContentLoaded',function(){
  if(coverBtn){
    coverBtn.addEventListener('click',()=>{bgm.currentTime = 24; bgm.play().catch(()=>{});},{once:true});
  }
- const musicBtn=document.getElementById('musicBtn');
- if(musicBtn){
-   musicBtn.addEventListener('click',()=>{
-     if(bgm.paused){bgm.play();}else{bgm.pause();}
-   });
- }
+ 
+  const musicBtn = document.getElementById('musicBtn');
+
+  if(musicBtn){
+    musicBtn.addEventListener('click', ()=>{
+      if(bgm.paused){
+        bgm.play();
+      }else{
+        bgm.pause();
+      }
+    });
+  }
+
+  // ===== Scroll Animation =====
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+      }
+    });
+  });
+
+  document.querySelectorAll('.reveal').forEach(el=>{
+    observer.observe(el);
+  });
+
 });
 </script>
 
